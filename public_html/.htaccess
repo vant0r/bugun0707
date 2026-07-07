@@ -1,0 +1,47 @@
+# ============================================================
+# .htaccess — Apache sozlamalari
+# ============================================================
+
+# SEO: www dan httpsga
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ https://%1/$1 [L,R=301]
+
+# HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [L,R=301]
+
+# PHP xatoliklarni ko'rsatish
+php_flag display_errors on
+php_value error_reporting E_ALL
+
+# 404 xatolik
+ErrorDocument 404 /404.php
+
+# URL qayta yozish
+RewriteRule ^login$ /login.php [L]
+RewriteRule ^register$ /login.php?mode=register [L]
+RewriteRule ^logout$ /logout.php [L]
+
+# API
+RewriteRule ^api/(.*)$ /api/index.php?action=$1 [L]
+
+# PWA
+<FilesMatch "manifest.json|sw.js">
+    Header set Service-Worker-Allowed "/"
+</FilesMatch>
+
+# Xavfsizlik
+<FilesMatch "\.(env|config|database|auth|security|bootstrap|functions)\.php$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Cache
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 1 year"
+    ExpiresByType text/javascript "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+</IfModule>

@@ -1,0 +1,109 @@
+[
+    {
+        "id": 1,
+        "key": "kunlik",
+        "name": "Kunlik",
+        "name_cyrl": "Кунлик",
+        "description": "1 kundan 100 kungacha o'zingiz tanlang",
+        "description_cyrl": "1 кундан 100 кунгача ўзингиз танланг",
+        "price_per_day": 5000,
+        "price": 5000,
+        "old_price": 10000,
+        "duration_days": 1,
+        "min_days": 1,
+        "max_days": 100,
+        "period_label": "kunlik",
+        "period_label_cyrl": "кунлик",
+        "highlight": false,
+        "popular": false,
+        "active": true,
+        "sort": 1,
+        "features": [
+            "Barcha savollar bazasi",
+            "Cheksiz testlar",
+            "Mobil va kompyuter",
+            "Statistika"
+        ],
+        "features_cyrl": [
+            "Барча саволлар базаси",
+            "Чексиз тестлар",
+            "Мобил ва компьютер",
+            "Статистика"
+        ],
+        "created_at": "2026-01-01 09:00:00"
+    },
+    {
+        "id": 2,
+        "key": "standard",
+        "name": "Standart",
+        "name_cyrl": "Стандарт",
+        "description": "15 kunlik to'liq kirish",
+        "description_cyrl": "15 кунлик тўлиқ кириш",
+        "price_per_day": 2999,
+        "price": 45000,
+        "old_price": 60000,
+        "duration_days": 15,
+        "min_days": 15,
+        "max_days": 14,
+        "period_label": "15 kun",
+        "period_label_cyrl": "15 кун",
+        "highlight": true,
+        "popular": true,
+        "active": true,
+        "sort": 2,
+        "features": [
+            "1000+ savol bazasi",
+            "Cheksiz testlar",
+            "Aqlli takrorlash tizimi",
+            "Barcha 62ta bilet",
+            "Sertifikat olish",
+            "Telegram bildirishnomalar"
+        ],
+        "features_cyrl": [
+            "1000+ савол базаси",
+            "Чексиз тестлар",
+            "Ақлли такрорлаш тизими",
+            "Барча 62 та билет",
+            "Сертификат олиш",
+            "Телеграм билдиришномалар"
+        ],
+        "created_at": "2026-01-01 09:00:00"
+    },
+    {
+        "id": 3,
+        "key": "premium",
+        "name": "Premium",
+        "name_cyrl": "Премиум",
+        "description": "30 kunlik premium kirish",
+        "description_cyrl": "30 кунлик премиум кириш",
+        "price_per_day": 2500,
+        "price": 75000,
+        "old_price": 180000,
+        "duration_days": 30,
+        "min_days": 30,
+        "max_days": 30,
+        "period_label": "30 kun",
+        "period_label_cyrl": "30 кун",
+        "highlight": false,
+        "popular": false,
+        "active": true,
+        "sort": 3,
+        "features": [
+            "Standart tarifning hammasi",
+            "Video darslar",
+            "Oflayn rejim (PWA)",
+            "Shaxsiy mentor",
+            "Premium sertifikat",
+            "Birinchi yangiliklar"
+        ],
+        "features_cyrl": [
+            "Стандарт тарифнинг ҳаммаси",
+            "Видео дарслар",
+            "Офлайн режим (PWA)",
+            "Шахсий ментор",
+            "Премиум сертификат",
+            "Биринчи янгиликлар"
+        ],
+        "created_at": "2026-01-01 09:00:00"
+    }
+]

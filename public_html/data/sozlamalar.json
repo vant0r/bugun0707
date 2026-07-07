@@ -1,0 +1,352 @@
+[
+    {
+        "key": "site_name",
+        "value": "VATANPARVAR",
+        "group": "general"
+    },
+    {
+        "key": "site_logo",
+        "value": "/assets/uploads/site_logo_1782013708.jpg",
+        "group": "general"
+    },
+    {
+        "key": "site_description",
+        "value": "VATANPARVAR avtomaktabi uchun yo'l harakati qoidalari nazariy imtihoniga onlayn tayyorlanish premium platformasi",
+        "group": "general"
+    },
+    {
+        "key": "site_keywords",
+        "value": "Yaypan avtomaktab,YHQ, yo'l harakati qoidalari, online imtihon, gai imtihon, online test",
+        "group": "general"
+    },
+    {
+        "key": "contact_phone",
+        "value": "+998 70 121 10 21",
+        "group": "contact"
+    },
+    {
+        "key": "contact_email",
+        "value": "info@vatanparvaryaypan.uz",
+        "group": "contact"
+    },
+    {
+        "key": "contact_address",
+        "value": "Farg'ona viloyati, Yaypan shahri, Markaziy ko'cha",
+        "group": "contact"
+    },
+    {
+        "key": "contact_telegram",
+        "value": "@vatanparvar_yaypan",
+        "group": "social"
+    },
+    {
+        "key": "contact_instagram",
+        "value": "vatanparvar_yaypan",
+        "group": "social"
+    },
+    {
+        "key": "contact_youtube",
+        "value": "vatanparvaryaypan",
+        "group": "social"
+    },
+    {
+        "key": "contact_facebook",
+        "value": "vatanparvaryaypan",
+        "group": "social"
+    },
+    {
+        "key": "telegram_bot_token",
+        "value": "8919348959:AAH3fZ7E_YupPMw5vFxTzNvWufCLILl2LN8",
+        "group": "telegram"
+    },
+    {
+        "key": "telegram_chat_id",
+        "value": "8041403429",
+        "group": "telegram"
+    },
+    {
+        "key": "click_service_id",
+        "value": "",
+        "group": "payments"
+    },
+    {
+        "key": "click_merchant_id",
+        "value": "",
+        "group": "payments"
+    },
+    {
+        "key": "click_secret_key",
+        "value": "",
+        "group": "payments"
+    },
+    {
+        "key": "payment_click_active",
+        "value": "1",
+        "group": "payments"
+    },
+    {
+        "key": "payme_merchant_id",
+        "value": "",
+        "group": "payments"
+    },
+    {
+        "key": "payme_key",
+        "value": "",
+        "group": "payments"
+    },
+    {
+        "key": "payment_payme_active",
+        "value": "1",
+        "group": "payments"
+    },
+    {
+        "key": "payment_humo_active",
+        "value": "1",
+        "group": "payments"
+    },
+    {
+        "key": "humo_card_number",
+        "value": "4073420085158800",
+        "group": "payments"
+    },
+    {
+        "key": "humo_card_name",
+        "value": "FOTIMAXON TURDALIYEVA",
+        "group": "payments"
+    },
+    {
+        "key": "payment_uzcard_active",
+        "value": "1",
+        "group": "payments"
+    },
+    {
+        "key": "uzcard_card_number",
+        "value": "",
+        "group": "payments"
+    },
+    {
+        "key": "uzcard_card_name",
+        "value": "",
+        "group": "payments"
+    },
+    {
+        "key": "payment_visa_active",
+        "value": "1",
+        "group": "payments"
+    },
+    {
+        "key": "visa_card_number",
+        "value": "4073420085158800",
+        "group": "payments"
+    },
+    {
+        "key": "visa_card_name",
+        "value": "FOTIMAXON TURDALIYEVA",
+        "group": "payments"
+    },
+    {
+        "key": "payment_invoice_active",
+        "value": "1",
+        "group": "payments"
+    },
+    {
+        "key": "test_duration",
+        "value": "1500",
+        "group": "tests"
+    },
+    {
+        "key": "test_question_count",
+        "value": "20",
+        "group": "tests"
+    },
+    {
+        "key": "test_pass_score",
+        "value": "18",
+        "group": "tests"
+    },
+    {
+        "key": "free_daily_questions",
+        "value": "1",
+        "group": "tests"
+    },
+    {
+        "key": "referral_bonus",
+        "value": "5000",
+        "group": "referral"
+    },
+    {
+        "key": "stat_users",
+        "value": "67",
+        "group": "landing"
+    },
+    {
+        "key": "stat_tests",
+        "value": "260",
+        "group": "landing"
+    },
+    {
+        "key": "stat_score",
+        "value": "17.8",
+        "group": "landing"
+    },
+    {
+        "key": "stat_success",
+        "value": "94",
+        "group": "landing"
+    },
+    {
+        "key": "hero_bg_image",
+        "value": "/assets/uploads/hero_bg_image_1782232637.png",
+        "group": "landing"
+    },
+    {
+        "key": "banner_image_1",
+        "value": "/assets/uploads/banner_image_1_1782144697.jpg",
+        "group": "landing"
+    },
+    {
+        "key": "banner_image_2",
+        "value": "/assets/uploads/banner_image_2_1782144697.jpg",
+        "group": "landing"
+    },
+    {
+        "key": "banner_image_3",
+        "value": "/assets/uploads/banner_image_3_1782144697.jpg",
+        "group": "landing"
+    },
+    {
+        "key": "ticker_text_1",
+        "value": "4000+ rasmiy YHQ savollari",
+        "group": "landing"
+    },
+    {
+        "key": "ticker_text_2",
+        "value": "96% muvaffaqiyat darajasi",
+        "group": "landing"
+    },
+    {
+        "key": "ticker_text_3",
+        "value": "8400+ faol o'quvchi",
+        "group": "landing"
+    },
+    {
+        "key": "ticker_text_4",
+        "value": "Birinchi urinishda topshiring",
+        "group": "landing"
+    },
+    {
+        "key": "founder_active",
+        "value": "0",
+        "group": "landing"
+    },
+    {
+        "key": "founder_name",
+        "value": "",
+        "group": "landing"
+    },
+    {
+        "key": "founder_title",
+        "value": "",
+        "group": "landing"
+    },
+    {
+        "key": "founder_image",
+        "value": "",
+        "group": "landing"
+    },
+    {
+        "key": "founder_description",
+        "value": "",
+        "group": "landing"
+    },
+    {
+        "key": "developer_active",
+        "value": "0",
+        "group": "landing"
+    },
+    {
+        "key": "developer_name",
+        "value": "G'iyosiddin Adhamjonov",
+        "group": "landing"
+    },
+    {
+        "key": "developer_title",
+        "value": "Bosh dasturchi",
+        "group": "landing"
+    },
+    {
+        "key": "developer_phone",
+        "value": "+998 92 122 51 52",
+        "group": "landing"
+    },
+    {
+        "key": "developer_telegram",
+        "value": "@kibersud",
+        "group": "landing"
+    },
+    {
+        "key": "developer_description",
+        "value": "G'iyosiddin — to'liq stek veb-dasturchi, PHP va MySQL asosida ishlaydi. Farg'ona davlat texnika universiteti talabasi. VATANPARVAR Yaypan platformasini noldan ishlab chiqdi — backend, admin panel va Telegram bot integratsiyasi shu jumladan. Vanilla texnologiyalar bilan ishlashni, har bir loyihani mustahkam va xavfsiz qurishni afzal ko'radi.",
+        "group": "landing"
+    },
+    {
+        "key": "login_image_1",
+        "value": "/assets/uploads/login_image_1_1782013887.jpg",
+        "group": "landing"
+    },
+    {
+        "key": "login_image_2",
+        "value": "",
+        "group": "landing"
+    },
+    {
+        "key": "login_image_3",
+        "value": "",
+        "group": "landing"
+    },
+    {
+        "key": "panel_bg_image",
+        "value": "/assets/uploads/panel_bg_image_1782045769.jpg",
+        "group": "landing"
+    },
+    {
+        "key": "company_name",
+        "value": "VATANPARVAR",
+        "group": "company"
+    },
+    {
+        "key": "company_inn",
+        "value": "300123456",
+        "group": "company"
+    },
+    {
+        "key": "company_account",
+        "value": "20208000900123456789",
+        "group": "company"
+    },
+    {
+        "key": "company_bank",
+        "value": "Hamkorbank Yaypan filiali",
+        "group": "company"
+    },
+    {
+        "key": "company_mfo",
+        "value": "00427",
+        "group": "company"
+    },
+    {
+        "key": "version",
+        "value": "1.0.0",
+        "group": "system"
+    },
+    {
+        "key": "installed",
+        "value": "1",
+        "group": "system"
+    },
+    {
+        "key": "installed_at",
+        "value": "2026-01-01 09:00:00",
+        "group": "system"
+    }
+]

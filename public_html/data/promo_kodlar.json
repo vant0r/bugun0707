@@ -1,0 +1,24 @@
+[
+    {
+        "id": 1,
+        "code": "BEPUL2026",
+        "type": "free_ticket",
+        "value": 1,
+        "max_uses": 100,
+        "used_count": 0,
+        "active": true,
+        "expires_at": "2026-12-31 23:59:59",
+        "created_at": "2026-01-01 09:00:00"
+    },
+    {
+        "id": 2,
+        "code": "START50",
+        "type": "discount_percent",
+        "value": 50,
+        "max_uses": 50,
+        "used_count": 0,
+        "active": true,
+        "expires_at": "2026-12-31 23:59:59",
+        "created_at": "2026-01-01 09:00:00"
+    }
+]

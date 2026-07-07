@@ -1,0 +1,38 @@
+[
+    {
+        "user_id": 5,
+        "token_hash": "d101d81fa5b654b2794c155a0e8d50375753876c333751c8380681f14c595d9c",
+        "expires_at": "2026-07-27 16:59:02",
+        "created_at": "2026-06-27 16:59:02"
+    },
+    {
+        "user_id": 4,
+        "token_hash": "f3954ec99661a4b93714fb87507cbd404f2247c242606967312996b7ee3f020c",
+        "expires_at": "2026-07-29 08:37:14",
+        "created_at": "2026-06-29 08:37:14"
+    },
+    {
+        "user_id": 6,
+        "token_hash": "713fff031fcfb8b3a38eb8d6161b3ad8ebddd91bf2b18e6efe11714223b39d41",
+        "expires_at": "2026-07-30 10:18:49",
+        "created_at": "2026-06-30 10:18:49"
+    },
+    {
+        "user_id": 7,
+        "token_hash": "dd402a7d9549f0cad2ac21d0b5f1dc05ca333daf3324dc9c20e6d6b76ff04d71",
+        "expires_at": "2026-08-01 16:30:24",
+        "created_at": "2026-07-02 16:30:24"
+    },
+    {
+        "user_id": 8,
+        "token_hash": "f4d7afd9807b372df5981af9b52a4246c8c87ab8c11e4e62724623215a49c109",
+        "expires_at": "2026-08-03 17:03:04",
+        "created_at": "2026-07-04 17:03:04"
+    },
+    {
+        "user_id": 1,
+        "token_hash": "31ac6e37c49d39eee6592f384c208d22e3ed8783e2c4dd04cb2fd09fea4efa0f",
+        "expires_at": "2026-08-06 17:53:09",
+        "created_at": "2026-07-07 17:53:09"
+    }
+]

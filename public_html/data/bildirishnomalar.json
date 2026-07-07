@@ -1,0 +1,109 @@
+[
+    {
+        "id": 1,
+        "user_id": 3,
+        "title": "To'lov muvaffaqiyatli",
+        "message": "Standart tarifi faollashtirildi. Summa: 45 000 so'm",
+        "type": "success",
+        "url": "/user/tariflar.php",
+        "is_read": 1,
+        "created_at": "2026-06-21 19:48:20",
+        "read_at": "2026-06-21 20:58:27"
+    },
+    {
+        "id": 2,
+        "user_id": 3,
+        "title": "To'lov qabul qilindi",
+        "message": "Kunlik tarifi uchun to'lov screenshotingiz qabul qilindi. Admin tekshirmoqda.",
+        "type": "info",
+        "url": "/user/tariflar.php",
+        "is_read": 1,
+        "created_at": "2026-06-21 19:58:05",
+        "read_at": "2026-06-21 20:58:27"
+    },
+    {
+        "id": 3,
+        "user_id": 1,
+        "title": "Yangi to'lov screenshot",
+        "message": "Python — Kunlik — 2 000 so'm",
+        "type": "admin",
+        "url": "",
+        "is_read": 0,
+        "created_at": "2026-06-21 19:58:05"
+    },
+    {
+        "id": 4,
+        "user_id": 3,
+        "title": "To'lov qabul qilindi",
+        "message": "Kunlik tarifi uchun to'lov screenshotingiz qabul qilindi. Admin tekshirmoqda.",
+        "type": "info",
+        "url": "/user/tariflar.php",
+        "is_read": 1,
+        "created_at": "2026-06-21 19:58:06",
+        "read_at": "2026-06-21 20:58:27"
+    },
+    {
+        "id": 5,
+        "user_id": 1,
+        "title": "Yangi to'lov screenshot",
+        "message": "Python — Kunlik — 2 000 so'm",
+        "type": "admin",
+        "url": "",
+        "is_read": 0,
+        "created_at": "2026-06-21 19:58:06"
+    },
+    {
+        "id": 6,
+        "user_id": 3,
+        "title": "To'lov muvaffaqiyatli",
+        "message": "Kunlik tarifi faollashtirildi. Summa: 2 000 so'm",
+        "type": "success",
+        "url": "/user/tariflar.php",
+        "is_read": 1,
+        "created_at": "2026-06-21 19:59:33",
+        "read_at": "2026-06-21 20:58:27"
+    },
+    {
+        "id": 7,
+        "user_id": 3,
+        "title": "Tarif faollashtirildi!",
+        "message": "Kunlik tarifi faollashtirildi. 22.06.2026 gacha amal qiladi. Testlarni boshlashingiz mumkin!",
+        "type": "success",
+        "url": "/user/testlar.php",
+        "is_read": 1,
+        "created_at": "2026-06-21 19:59:33",
+        "read_at": "2026-06-21 20:58:27"
+    },
+    {
+        "id": 8,
+        "user_id": 3,
+        "title": "Qo'llab-quvatlash javobi",
+        "message": "Admin sizga javob yozdi",
+        "type": "info",
+        "url": "/user/index.php#support",
+        "is_read": 1,
+        "created_at": "2026-06-21 19:59:33",
+        "read_at": "2026-06-21 20:58:27"
+    },
+    {
+        "id": 9,
+        "user_id": 1,
+        "title": "Yangi qo'llab-quvatlash xabari",
+        "message": "Python: salom",
+        "type": "admin",
+        "url": "",
+        "is_read": 0,
+        "created_at": "2026-06-21 20:12:46"
+    },
+    {
+        "id": 10,
+        "user_id": 3,
+        "title": "Qo'llab-quvatlash javobi",
+        "message": "Admin sizga javob yozdi",
+        "type": "info",
+        "url": "/user/index.php#support",
+        "is_read": 1,
+        "created_at": "2026-06-21 20:13:22",
+        "read_at": "2026-06-21 20:58:23"
+    }
+]

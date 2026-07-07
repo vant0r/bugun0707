@@ -1,0 +1,7 @@
+[
+    {"id":1,"name":"Aziz Karimov","text":"Juda qulay platforma. 1 haftada tayyorlanib birinchi urinishda topshirdim!","rating":5,"status":"approved","featured":true,"city":"Yaypan","created_at":"2026-03-15 10:00:00"},
+    {"id":2,"name":"Nilufar Rahimova","text":"Savollar rasmiy GAI imtihoniga to'liq mos keladi. Tavsiya qilaman.","rating":5,"status":"approved","featured":true,"city":"Yaypan","created_at":"2026-03-10 14:30:00"},
+    {"id":3,"name":"Sardor Toshmatov","text":"Mobil versiyasi juda yaxshi. Avtobusda ham mashq qilsa bo'ladi.","rating":4,"status":"approved","featured":true,"city":"Farg'ona","created_at":"2026-02-20 09:15:00"},
+    {"id":4,"name":"Madina Usmonova","text":"Tushuntirishlar bilan javob beriladi. Bu juda foydali.","rating":5,"status":"approved","featured":true,"city":"Yaypan","created_at":"2026-02-05 16:45:00"},
+    {"id":5,"name":"Bobur Aliyev","text":"Narxi arzon, sifati yuqori. 3 kunlik tarifdan boshladim, keyin 30 kunga o'tdim.","rating":5,"status":"approved","featured":true,"city":"Qo'qon","created_at":"2026-01-28 11:20:00"}
+]

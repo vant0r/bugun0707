@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "user_id": 3,
+        "message": "Sizning Kunlik tarifi uchun to'lovingiz tasdiqlandi! Tarif 22.06.2026 gacha amal qiladi.",
+        "is_admin": true,
+        "created_at": "2026-06-21 19:59:33"
+    },
+    {
+        "id": 2,
+        "user_id": 3,
+        "message": "salom",
+        "is_admin": false,
+        "created_at": "2026-06-21 20:12:46"
+    },
+    {
+        "id": 3,
+        "user_id": 3,
+        "message": "qonday",
+        "is_admin": true,
+        "created_at": "2026-06-21 20:13:22"
+    }
+]

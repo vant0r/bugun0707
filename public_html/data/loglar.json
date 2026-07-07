@@ -1,0 +1,219 @@
+[
+    {
+        "id": 1,
+        "type": "logs_cleared",
+        "message": "Loglar tozalandi",
+        "meta": {
+            "admin": 1
+        },
+        "ip": "95.214.210.12",
+        "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+        "user_id": 1,
+        "created_at": "2026-06-30 21:31:42"
+    },
+    {
+        "id": 2,
+        "type": "delete_bilet",
+        "message": "Bilet bo'yicha savollar o'chirildi",
+        "meta": {
+            "bilet_id": 27,
+            "count": 40
+        },
+        "ip": "95.214.210.12",
+        "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+        "user_id": 1,
+        "created_at": "2026-06-30 22:26:18"
+    },
+    {
+        "id": 3,
+        "type": "import",
+        "message": "Savollar import",
+        "meta": {
+            "bilet_id": 27,
+            "count": 20
+        },
+        "ip": "95.214.210.12",
+        "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+        "user_id": 1,
+        "created_at": "2026-06-30 22:34:03"
+    },
+    {
+        "id": 4,
+        "type": "register",
+        "message": "Yangi foydalanuvchi",
+        "meta": {
+            "user_id": 7,
+            "phone": "+998909876543"
+        },
+        "ip": "95.214.211.123",
+        "ua": "okhttp/4.12.0",
+        "user_id": null,
+        "created_at": "2026-07-02 16:30:24"
+    },
+    {
+        "id": 5,
+        "type": "login",
+        "message": "Tizimga kirish",
+        "meta": {
+            "user_id": 7
+        },
+        "ip": "95.214.211.123",
+        "ua": "okhttp/4.12.0",
+        "user_id": 7,
+        "created_at": "2026-07-02 16:31:32"
+    },
+    {
+        "id": 6,
+        "type": "login",
+        "message": "Tizimga kirish",
+        "meta": {
+            "user_id": 7
+        },
+        "ip": "108.177.29.90",
+        "ua": "okhttp/4.12.0",
+        "user_id": 7,
+        "created_at": "2026-07-02 16:58:14"
+    },
+    {
+        "id": 7,
+        "type": "delete_bilet",
+        "message": "Bilet bo'yicha savollar o'chirildi",
+        "meta": {
+            "bilet_id": 6,
+            "count": 20
+        },
+        "ip": "95.214.211.158",
+        "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+        "user_id": 1,
+        "created_at": "2026-07-03 16:05:32"
+    },
+    {
+        "id": 8,
+        "type": "import",
+        "message": "Savollar import",
+        "meta": {
+            "bilet_id": 6,
+            "count": 20
+        },
+        "ip": "95.214.211.158",
+        "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+        "user_id": 1,
+        "created_at": "2026-07-03 16:05:42"
+    },
+    {
+        "id": 9,
+        "type": "register",
+        "message": "Yangi foydalanuvchi",
+        "meta": {
+            "user_id": 8,
+            "phone": "+998903621210"
+        },
+        "ip": "84.54.122.38",
+        "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 YaBrowser/26.6.0.0 Safari/537.36",
+        "user_id": null,
+        "created_at": "2026-07-04 17:03:04"
+    },
+    {
+        "id": 10,
+        "type": "delete_bilet",
+        "message": "Bilet bo'yicha savollar o'chirildi",
+        "meta": {
+            "bilet_id": 14,
+            "count": 20
+        },
+        "ip": "37.110.214.30",
+        "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+        "user_id": 1,
+        "created_at": "2026-07-06 19:34:13"
+    },
+    {
+        "id": 11,
+        "type": "import",
+        "message": "Savollar import",
+        "meta": {
+            "bilet_id": 14,
+            "count": 19
+        },
+        "ip": "37.110.214.30",
+        "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+        "user_id": 1,
+        "created_at": "2026-07-06 19:34:43"
+    },
+    {
+        "id": 12,
+        "type": "delete_bilet",
+        "message": "Bilet bo'yicha savollar o'chirildi",
+        "meta": {
+            "bilet_id": 14,
+            "count": 19
+        },
+        "ip": "37.110.214.30",
+        "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+        "user_id": 1,
+        "created_at": "2026-07-06 19:38:08"
+    },
+    {
+        "id": 13,
+        "type": "import",
+        "message": "Savollar import",
+        "meta": {
+            "bilet_id": 14,
+            "count": 19
+        },
+        "ip": "37.110.214.30",
+        "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+        "user_id": 1,
+        "created_at": "2026-07-06 19:57:05"
+    },
+    {
+        "id": 14,
+        "type": "delete_bilet",
+        "message": "Bilet bo'yicha savollar o'chirildi",
+        "meta": {
+            "bilet_id": 14,
+            "count": 19
+        },
+        "ip": "37.110.214.30",
+        "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+        "user_id": 1,
+        "created_at": "2026-07-06 19:58:07"
+    },
+    {
+        "id": 15,
+        "type": "import",
+        "message": "Savollar import",
+        "meta": {
+            "bilet_id": 14,
+            "count": 19
+        },
+        "ip": "37.110.214.30",
+        "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+        "user_id": 1,
+        "created_at": "2026-07-06 20:01:15"
+    },
+    {
+        "id": 16,
+        "type": "import",
+        "message": "Savollar import",
+        "meta": {
+            "bilet_id": 14,
+            "count": 1
+        },
+        "ip": "37.110.214.30",
+        "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+        "user_id": 1,
+        "created_at": "2026-07-06 20:01:36"
+    },
+    {
+        "id": 17,
+        "type": "login",
+        "message": "Tizimga kirish",
+        "meta": {
+            "user_id": 1
+        },
+        "ip": "84.54.94.59",
+        "ua": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Mobile Safari/537.36",
+        "user_id": 1,
+        "created_at": "2026-07-07 17:53:09"
+    }
+]
