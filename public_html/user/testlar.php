@@ -13,7 +13,11 @@ if ($pdo) {
     } catch (Exception $e) {}
 }
 
-$total_bilets = max(62, max(array_keys($bilet_data) + [0]));
+$total_bilets = max(62, empty($bilet_data) ? 62 : max(array_keys($bilet_data)));
+
+// Faol biletlar ro'yxati
+$active_bilets_data = vpy_read_json('faol_biletlar', []);
+$active_bilets = $active_bilets_data['active'] ?? range(1, 15);
 
 $user_results = vpy_filter('natijalar', fn($r) => (int)$r['user_id'] === (int)$u['id'] && ($r['type'] ?? '') === 'bilet');
 $bilet_done = [];
@@ -61,9 +65,10 @@ vpy_panel_sidebar('testlar', false);
         <?php for ($i = 1; $i <= $total_bilets; $i++):
             $count = $bilet_data[$i] ?? 0;
             $done = $bilet_done[$i] ?? null;
-            $cls = $done ? 'done' : ($count === 0 ? 'bilet-empty' : '');
+            $is_active_bilet = in_array($i, $active_bilets);
+            $cls = $done ? 'done' : ($count === 0 || !$is_active_bilet ? 'bilet-empty' : '');
         ?>
-            <a href="<?= $count ? '/user/test.php?bilet=' . $i : '#' ?>" class="bilet-card <?= $cls ?>">
+            <a href="<?= ($count && $is_active_bilet) ? '/user/test.php?bilet=' . $i : '#' ?>" class="bilet-card <?= $cls ?>" <?= !$is_active_bilet ? 'title="Bu bilet hozircha yopiq"' : '' ?>>
                 <?php if ($done): ?>
                     <span class="bilet-score"><?= (int)$done['score'] ?>/<?= (int)$done['total'] ?></span>
                 <?php endif; ?>
