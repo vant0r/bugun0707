@@ -107,6 +107,16 @@ vpy_panel_head(t('admin_settings'), <<<CSS
 .toggle-switch::after{content:"";position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:var(--muted);transition:var(--t)}
 .toggle-switch.on{background:var(--primary);border-color:var(--primary)}
 .toggle-switch.on::after{transform:translateX(20px);background:#fff}
+/* Payment card states */
+.pay-card{transition:all 0.3s cubic-bezier(.4,0,.2,1);overflow:hidden}
+.pay-card .card-head{display:flex;align-items:center;justify-content:space-between}
+.pay-card.pay-inactive{opacity:0.6;border-color:var(--border)}
+.pay-card.pay-active{border-left:3px solid #10b981}
+.pay-fields{transition:all 0.35s cubic-bezier(.4,0,.2,1);max-height:500px;opacity:1;overflow:hidden}
+.pay-fields-hidden{max-height:0;opacity:0;margin:0;padding:0;pointer-events:none}
+.pay-status-badge{padding:4px 12px;border-radius:20px;font-size:0.7rem;font-weight:700;letter-spacing:0.03em;text-transform:uppercase;white-space:nowrap}
+.badge-on{background:rgba(16,185,129,0.12);color:#10b981}
+.badge-off{background:rgba(107,114,128,0.1);color:var(--muted)}
 CSS);
 vpy_panel_sidebar('sozlamalar', true);
 ?>
@@ -278,93 +288,123 @@ vpy_panel_sidebar('sozlamalar', true);
 
 <?php elseif ($current_tab === 'payments'): ?>
     <!-- CLICK -->
-    <div class="card" style="margin-bottom:18px">
-        <div class="card-head"><h2>Click</h2></div>
+    <div class="card pay-card <?= ($grouped['payments']['payment_click_active'] ?? '0') === '1' ? 'pay-active' : 'pay-inactive' ?>" style="margin-bottom:18px" data-pay-card="payment_click_active">
+        <div class="card-head">
+            <h2>Click</h2>
+            <div class="pay-status-badge <?= ($grouped['payments']['payment_click_active'] ?? '0') === '1' ? 'badge-on' : 'badge-off' ?>" id="badge_payment_click_active"><?= ($grouped['payments']['payment_click_active'] ?? '0') === '1' ? 'Faol' : 'O\'chiq' ?></div>
+        </div>
         <div class="toggle-row">
             <label>Click to'lovni faollashtirish</label>
             <div class="toggle-switch <?= ($grouped['payments']['payment_click_active'] ?? '0') === '1' ? 'on' : '' ?>" data-field="payment_click_active"></div>
             <input type="hidden" name="payment_click_active" id="toggle_payment_click_active" value="<?= e($grouped['payments']['payment_click_active'] ?? '0') ?>">
         </div>
-        <div class="field-row" style="margin-top:14px">
-            <div class="field"><label>Service ID</label><input type="text" name="click_service_id" value="<?= e($grouped['payments']['click_service_id'] ?? '') ?>"></div>
-            <div class="field"><label>Merchant ID</label><input type="text" name="click_merchant_id" value="<?= e($grouped['payments']['click_merchant_id'] ?? '') ?>"></div>
+        <div class="pay-fields <?= ($grouped['payments']['payment_click_active'] ?? '0') === '1' ? '' : 'pay-fields-hidden' ?>" id="fields_payment_click_active">
+            <div class="field-row" style="margin-top:14px">
+                <div class="field"><label>Service ID</label><input type="text" name="click_service_id" value="<?= e($grouped['payments']['click_service_id'] ?? '') ?>"></div>
+                <div class="field"><label>Merchant ID</label><input type="text" name="click_merchant_id" value="<?= e($grouped['payments']['click_merchant_id'] ?? '') ?>"></div>
+            </div>
+            <div class="field"><label>Secret Key</label><input type="password" name="click_secret_key" value="<?= e($grouped['payments']['click_secret_key'] ?? '') ?>" autocomplete="off"></div>
         </div>
-        <div class="field"><label>Secret Key</label><input type="password" name="click_secret_key" value="<?= e($grouped['payments']['click_secret_key'] ?? '') ?>" autocomplete="off"></div>
     </div>
 
     <!-- PAYME -->
-    <div class="card" style="margin-bottom:18px">
-        <div class="card-head"><h2>Payme</h2></div>
+    <div class="card pay-card <?= ($grouped['payments']['payment_payme_active'] ?? '0') === '1' ? 'pay-active' : 'pay-inactive' ?>" style="margin-bottom:18px" data-pay-card="payment_payme_active">
+        <div class="card-head">
+            <h2>Payme</h2>
+            <div class="pay-status-badge <?= ($grouped['payments']['payment_payme_active'] ?? '0') === '1' ? 'badge-on' : 'badge-off' ?>" id="badge_payment_payme_active"><?= ($grouped['payments']['payment_payme_active'] ?? '0') === '1' ? 'Faol' : 'O\'chiq' ?></div>
+        </div>
         <div class="toggle-row">
             <label>Payme to'lovni faollashtirish</label>
             <div class="toggle-switch <?= ($grouped['payments']['payment_payme_active'] ?? '0') === '1' ? 'on' : '' ?>" data-field="payment_payme_active"></div>
             <input type="hidden" name="payment_payme_active" id="toggle_payment_payme_active" value="<?= e($grouped['payments']['payment_payme_active'] ?? '0') ?>">
         </div>
-        <div class="field-row" style="margin-top:14px">
-            <div class="field"><label>Merchant ID</label><input type="text" name="payme_merchant_id" value="<?= e($grouped['payments']['payme_merchant_id'] ?? '') ?>"></div>
-            <div class="field"><label>Key</label><input type="password" name="payme_key" value="<?= e($grouped['payments']['payme_key'] ?? '') ?>" autocomplete="off"></div>
+        <div class="pay-fields <?= ($grouped['payments']['payment_payme_active'] ?? '0') === '1' ? '' : 'pay-fields-hidden' ?>" id="fields_payment_payme_active">
+            <div class="field-row" style="margin-top:14px">
+                <div class="field"><label>Merchant ID</label><input type="text" name="payme_merchant_id" value="<?= e($grouped['payments']['payme_merchant_id'] ?? '') ?>"></div>
+                <div class="field"><label>Key</label><input type="password" name="payme_key" value="<?= e($grouped['payments']['payme_key'] ?? '') ?>" autocomplete="off"></div>
+            </div>
         </div>
     </div>
 
     <!-- HUMO -->
-    <div class="card" style="margin-bottom:18px">
-        <div class="card-head"><h2>Humo karta</h2></div>
+    <div class="card pay-card <?= ($grouped['payments']['payment_humo_active'] ?? '0') === '1' ? 'pay-active' : 'pay-inactive' ?>" style="margin-bottom:18px" data-pay-card="payment_humo_active">
+        <div class="card-head">
+            <h2>Humo karta</h2>
+            <div class="pay-status-badge <?= ($grouped['payments']['payment_humo_active'] ?? '0') === '1' ? 'badge-on' : 'badge-off' ?>" id="badge_payment_humo_active"><?= ($grouped['payments']['payment_humo_active'] ?? '0') === '1' ? 'Faol' : 'O\'chiq' ?></div>
+        </div>
         <div class="toggle-row">
             <label>Humo orqali to'lovni faollashtirish</label>
             <div class="toggle-switch <?= ($grouped['payments']['payment_humo_active'] ?? '0') === '1' ? 'on' : '' ?>" data-field="payment_humo_active"></div>
             <input type="hidden" name="payment_humo_active" id="toggle_payment_humo_active" value="<?= e($grouped['payments']['payment_humo_active'] ?? '0') ?>">
         </div>
-        <div class="field-row" style="margin-top:14px">
-            <div class="field"><label>Karta raqami</label><input type="text" name="humo_card_number" value="<?= e($grouped['payments']['humo_card_number'] ?? '') ?>" placeholder="9860 XXXX XXXX XXXX" maxlength="19"></div>
-            <div class="field"><label>Karta egasi ismi</label><input type="text" name="humo_card_name" value="<?= e($grouped['payments']['humo_card_name'] ?? '') ?>" placeholder="FAMILIYA ISM"></div>
+        <div class="pay-fields <?= ($grouped['payments']['payment_humo_active'] ?? '0') === '1' ? '' : 'pay-fields-hidden' ?>" id="fields_payment_humo_active">
+            <div class="field-row" style="margin-top:14px">
+                <div class="field"><label>Karta raqami</label><input type="text" name="humo_card_number" value="<?= e($grouped['payments']['humo_card_number'] ?? '') ?>" placeholder="9860 XXXX XXXX XXXX" maxlength="19"></div>
+                <div class="field"><label>Karta egasi ismi</label><input type="text" name="humo_card_name" value="<?= e($grouped['payments']['humo_card_name'] ?? '') ?>" placeholder="FAMILIYA ISM"></div>
+            </div>
         </div>
     </div>
 
     <!-- UZCARD -->
-    <div class="card" style="margin-bottom:18px">
-        <div class="card-head"><h2>Uzcard karta</h2></div>
+    <div class="card pay-card <?= ($grouped['payments']['payment_uzcard_active'] ?? '0') === '1' ? 'pay-active' : 'pay-inactive' ?>" style="margin-bottom:18px" data-pay-card="payment_uzcard_active">
+        <div class="card-head">
+            <h2>Uzcard karta</h2>
+            <div class="pay-status-badge <?= ($grouped['payments']['payment_uzcard_active'] ?? '0') === '1' ? 'badge-on' : 'badge-off' ?>" id="badge_payment_uzcard_active"><?= ($grouped['payments']['payment_uzcard_active'] ?? '0') === '1' ? 'Faol' : 'O\'chiq' ?></div>
+        </div>
         <div class="toggle-row">
             <label>Uzcard orqali to'lovni faollashtirish</label>
             <div class="toggle-switch <?= ($grouped['payments']['payment_uzcard_active'] ?? '0') === '1' ? 'on' : '' ?>" data-field="payment_uzcard_active"></div>
             <input type="hidden" name="payment_uzcard_active" id="toggle_payment_uzcard_active" value="<?= e($grouped['payments']['payment_uzcard_active'] ?? '0') ?>">
         </div>
-        <div class="field-row" style="margin-top:14px">
-            <div class="field"><label>Karta raqami</label><input type="text" name="uzcard_card_number" value="<?= e($grouped['payments']['uzcard_card_number'] ?? '') ?>" placeholder="8600 XXXX XXXX XXXX" maxlength="19"></div>
-            <div class="field"><label>Karta egasi ismi</label><input type="text" name="uzcard_card_name" value="<?= e($grouped['payments']['uzcard_card_name'] ?? '') ?>" placeholder="FAMILIYA ISM"></div>
+        <div class="pay-fields <?= ($grouped['payments']['payment_uzcard_active'] ?? '0') === '1' ? '' : 'pay-fields-hidden' ?>" id="fields_payment_uzcard_active">
+            <div class="field-row" style="margin-top:14px">
+                <div class="field"><label>Karta raqami</label><input type="text" name="uzcard_card_number" value="<?= e($grouped['payments']['uzcard_card_number'] ?? '') ?>" placeholder="8600 XXXX XXXX XXXX" maxlength="19"></div>
+                <div class="field"><label>Karta egasi ismi</label><input type="text" name="uzcard_card_name" value="<?= e($grouped['payments']['uzcard_card_name'] ?? '') ?>" placeholder="FAMILIYA ISM"></div>
+            </div>
         </div>
     </div>
 
     <!-- VISA -->
-    <div class="card" style="margin-bottom:18px">
-        <div class="card-head"><h2>Visa karta</h2></div>
+    <div class="card pay-card <?= ($grouped['payments']['payment_visa_active'] ?? '0') === '1' ? 'pay-active' : 'pay-inactive' ?>" style="margin-bottom:18px" data-pay-card="payment_visa_active">
+        <div class="card-head">
+            <h2>Visa karta</h2>
+            <div class="pay-status-badge <?= ($grouped['payments']['payment_visa_active'] ?? '0') === '1' ? 'badge-on' : 'badge-off' ?>" id="badge_payment_visa_active"><?= ($grouped['payments']['payment_visa_active'] ?? '0') === '1' ? 'Faol' : 'O\'chiq' ?></div>
+        </div>
         <div class="toggle-row">
             <label>Visa orqali to'lovni faollashtirish</label>
             <div class="toggle-switch <?= ($grouped['payments']['payment_visa_active'] ?? '0') === '1' ? 'on' : '' ?>" data-field="payment_visa_active"></div>
             <input type="hidden" name="payment_visa_active" id="toggle_payment_visa_active" value="<?= e($grouped['payments']['payment_visa_active'] ?? '0') ?>">
         </div>
-        <div class="field-row" style="margin-top:14px">
-            <div class="field"><label>Karta raqami</label><input type="text" name="visa_card_number" value="<?= e($grouped['payments']['visa_card_number'] ?? '') ?>" placeholder="4XXX XXXX XXXX XXXX" maxlength="19"></div>
-            <div class="field"><label>Karta egasi ismi</label><input type="text" name="visa_card_name" value="<?= e($grouped['payments']['visa_card_name'] ?? '') ?>" placeholder="FAMILIYA ISM"></div>
+        <div class="pay-fields <?= ($grouped['payments']['payment_visa_active'] ?? '0') === '1' ? '' : 'pay-fields-hidden' ?>" id="fields_payment_visa_active">
+            <div class="field-row" style="margin-top:14px">
+                <div class="field"><label>Karta raqami</label><input type="text" name="visa_card_number" value="<?= e($grouped['payments']['visa_card_number'] ?? '') ?>" placeholder="4XXX XXXX XXXX XXXX" maxlength="19"></div>
+                <div class="field"><label>Karta egasi ismi</label><input type="text" name="visa_card_name" value="<?= e($grouped['payments']['visa_card_name'] ?? '') ?>" placeholder="FAMILIYA ISM"></div>
+            </div>
         </div>
     </div>
 
     <!-- KOMPANIYA HISOBI -->
-    <div class="card" style="margin-bottom:18px">
-        <div class="card-head"><h2>Kompaniya hisob raqami (pul o'tkazish)</h2></div>
+    <div class="card pay-card <?= ($grouped['payments']['payment_invoice_active'] ?? '0') === '1' ? 'pay-active' : 'pay-inactive' ?>" style="margin-bottom:18px" data-pay-card="payment_invoice_active">
+        <div class="card-head">
+            <h2>Kompaniya hisob raqami (pul o'tkazish)</h2>
+            <div class="pay-status-badge <?= ($grouped['payments']['payment_invoice_active'] ?? '0') === '1' ? 'badge-on' : 'badge-off' ?>" id="badge_payment_invoice_active"><?= ($grouped['payments']['payment_invoice_active'] ?? '0') === '1' ? 'Faol' : 'O\'chiq' ?></div>
+        </div>
         <div class="toggle-row">
             <label>Hisob raqamiga o'tkazishni faollashtirish</label>
             <div class="toggle-switch <?= ($grouped['payments']['payment_invoice_active'] ?? '0') === '1' ? 'on' : '' ?>" data-field="payment_invoice_active"></div>
             <input type="hidden" name="payment_invoice_active" id="toggle_payment_invoice_active" value="<?= e($grouped['payments']['payment_invoice_active'] ?? '0') ?>">
         </div>
-        <div class="field-row" style="margin-top:14px">
-            <div class="field"><label>Kompaniya nomi</label><input type="text" name="company_name" value="<?= e($grouped['company']['company_name'] ?? '') ?>"></div>
-            <div class="field"><label>INN</label><input type="text" name="company_inn" value="<?= e($grouped['company']['company_inn'] ?? '') ?>"></div>
+        <div class="pay-fields <?= ($grouped['payments']['payment_invoice_active'] ?? '0') === '1' ? '' : 'pay-fields-hidden' ?>" id="fields_payment_invoice_active">
+            <div class="field-row" style="margin-top:14px">
+                <div class="field"><label>Kompaniya nomi</label><input type="text" name="company_name" value="<?= e($grouped['company']['company_name'] ?? '') ?>"></div>
+                <div class="field"><label>INN</label><input type="text" name="company_inn" value="<?= e($grouped['company']['company_inn'] ?? '') ?>"></div>
+            </div>
+            <div class="field-row">
+                <div class="field"><label>Hisob raqami</label><input type="text" name="company_account" value="<?= e($grouped['company']['company_account'] ?? '') ?>"></div>
+                <div class="field"><label>Bank / MFO</label><input type="text" name="company_bank" value="<?= e($grouped['company']['company_bank'] ?? '') ?>"></div>
+            </div>
+            <div class="field"><label>MFO</label><input type="text" name="company_mfo" value="<?= e($grouped['company']['company_mfo'] ?? '') ?>"></div>
         </div>
-        <div class="field-row">
-            <div class="field"><label>Hisob raqami</label><input type="text" name="company_account" value="<?= e($grouped['company']['company_account'] ?? '') ?>"></div>
-            <div class="field"><label>Bank / MFO</label><input type="text" name="company_bank" value="<?= e($grouped['company']['company_bank'] ?? '') ?>"></div>
-        </div>
-        <div class="field"><label>MFO</label><input type="text" name="company_mfo" value="<?= e($grouped['company']['company_mfo'] ?? '') ?>"></div>
     </div>
 
 <?php else: ?>
@@ -407,12 +447,47 @@ document.querySelectorAll('.toggle-switch').forEach(function(ts){
     ts.addEventListener('click', function(){
         var field = ts.getAttribute('data-field');
         var input = document.getElementById('toggle_' + field);
+        var isOn;
         if(ts.classList.contains('on')){
             ts.classList.remove('on');
             input.value = '0';
+            isOn = false;
         } else {
             ts.classList.add('on');
             input.value = '1';
+            isOn = true;
+        }
+
+        // To'lov kartasi maydonlarini yashirish/ko'rsatish
+        var fields = document.getElementById('fields_' + field);
+        var card = document.querySelector('[data-pay-card="' + field + '"]');
+        var badge = document.getElementById('badge_' + field);
+        if (fields) {
+            if (isOn) {
+                fields.classList.remove('pay-fields-hidden');
+            } else {
+                fields.classList.add('pay-fields-hidden');
+            }
+        }
+        if (card) {
+            if (isOn) {
+                card.classList.remove('pay-inactive');
+                card.classList.add('pay-active');
+            } else {
+                card.classList.remove('pay-active');
+                card.classList.add('pay-inactive');
+            }
+        }
+        if (badge) {
+            if (isOn) {
+                badge.classList.remove('badge-off');
+                badge.classList.add('badge-on');
+                badge.textContent = 'Faol';
+            } else {
+                badge.classList.remove('badge-on');
+                badge.classList.add('badge-off');
+                badge.textContent = "O'chiq";
+            }
         }
     });
 });
