@@ -311,6 +311,46 @@ vpy_panel_sidebar('sozlamalar', true);
 <?php elseif ($current_tab === 'payments'): ?>
     <?php include __DIR__ . '/_payments_tab.php'; ?>
 
+<?php elseif ($current_tab === 'telegram'): ?>
+    <!-- TELEGRAM SOZLAMALARI -->
+    <div class="card" style="margin-bottom:18px">
+        <div class="card-head"><h2>
+            <svg viewBox="0 0 24 24" fill="#0088cc" style="width:22px;height:22px;vertical-align:middle;margin-right:8px"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+            Telegram bot sozlamalari
+        </h2></div>
+        <p style="font-size:0.85rem;color:var(--muted);margin-bottom:18px">Admin bildirishnomalar va foydalanuvchilar uchun Telegram orqali kirish imkoniyati</p>
+        <div class="field">
+            <label>Bot Token</label>
+            <input type="password" name="telegram_bot_token" value="<?= e($grouped['telegram']['telegram_bot_token'] ?? '') ?>" autocomplete="off" placeholder="123456789:ABCdefGhIjKlMnOpQrStUvWxYz">
+            <small style="display:block;margin-top:4px;font-size:0.75rem;color:var(--muted)">@BotFather dan olingan token</small>
+        </div>
+        <div class="field">
+            <label>Admin Chat ID</label>
+            <input type="text" name="telegram_chat_id" value="<?= e($grouped['telegram']['telegram_chat_id'] ?? '') ?>" placeholder="123456789">
+            <small style="display:block;margin-top:4px;font-size:0.75rem;color:var(--muted)">Admin bildirishnomalar yuboriladigan chat/group ID</small>
+        </div>
+    </div>
+
+    <div class="card" style="margin-bottom:18px">
+        <div class="card-head"><h2>Telegram Login (foydalanuvchilar uchun)</h2></div>
+        <p style="font-size:0.85rem;color:var(--muted);margin-bottom:18px">Foydalanuvchilar Telegram hisobi orqali tezkor kirish imkoniyati. Bot username kiritilsa, login sahifasida "Telegram orqali kirish" tugmasi paydo bo'ladi.</p>
+        <div class="field">
+            <label>Bot Username (@ belgisiz)</label>
+            <input type="text" name="telegram_bot_username" value="<?= e($grouped['telegram']['telegram_bot_username'] ?? '') ?>" placeholder="YourBotName_bot">
+            <small style="display:block;margin-top:4px;font-size:0.75rem;color:var(--muted)">Masalan: <code>vatanparvar_bot</code> — @BotFather da yaratilgan bot nomi</small>
+        </div>
+        <?php if (!empty($grouped['telegram']['telegram_bot_username'])): ?>
+        <div style="margin-top:14px;padding:14px 18px;background:rgba(0,136,204,0.05);border:1px solid rgba(0,136,204,0.15);border-radius:14px">
+            <div style="font-size:0.82rem;font-weight:600;color:#0088cc;margin-bottom:6px">Muhim sozlash:</div>
+            <ol style="font-size:0.8rem;color:var(--muted);padding-left:18px;line-height:1.8">
+                <li>@BotFather da <code>/setdomain</code> buyrug'ini yuboring</li>
+                <li>Botingizni tanlang</li>
+                <li>Domain sifatida <code><?= e(VPY_DOMAIN) ?></code> kiriting</li>
+            </ol>
+        </div>
+        <?php endif; ?>
+    </div>
+
 <?php else: ?>
     <?php if ($current_tab === 'system'): ?>
     <!-- PASSWORD CHANGE -->

@@ -15,8 +15,26 @@ if (vpy_is_post() && vpy_csrf_check(vpy_post('csrf'))) {
         $r = vpy_password_change($u['id'], vpy_post('old'), vpy_post('new'));
         vpy_flash_set($r['ok'] ? 'success' : 'error', $r['ok'] ? t('msg_updated') : $r['error']);
         vpy_redirect('/user/profil.php');
+    } elseif ($action === 'telegram_unlink') {
+        unset($u['telegram_id'], $u['telegram_username'], $u['telegram_photo']);
+        vpy_upsert('users', $u);
+        vpy_flash_set('success', 'Telegram bog\'lama olib tashlandi');
+        vpy_redirect('/user/profil.php');
     }
 }
+
+// Telegram bog'lash: agar sessionda pending telegram data bo'lsa
+if (!empty($_SESSION['vpy_telegram_pending']) && empty($u['telegram_id'])) {
+    $tg = $_SESSION['vpy_telegram_pending'];
+    $u['telegram_id'] = (int)$tg['id'];
+    $u['telegram_username'] = $tg['username'] ?? '';
+    $u['telegram_photo'] = $tg['photo'] ?? '';
+    vpy_upsert('users', $u);
+    unset($_SESSION['vpy_telegram_pending']);
+    vpy_flash_set('success', 'Telegram hisobingiz bog\'landi! Endi Telegram orqali tez kirishingiz mumkin.');
+    vpy_redirect('/user/profil.php');
+}
+
 $color = vpy_avatar_color($u['name']);
 
 vpy_panel_head(t('profile_title'), <<<CSS
@@ -63,6 +81,45 @@ vpy_panel_sidebar('profil', false);
                 <button onclick="navigator.clipboard.writeText('<?= e($u['referral_code'] ?? '') ?>');this.textContent='✓'" style="margin-left:auto;padding:6px 12px;background:rgba(255,255,255,0.18);color:#fff;border-radius:var(--pill);font-size:0.78rem">Nusxalash</button>
             </div>
             <a href="/user/referallar.php" style="margin-top:14px;display:inline-flex;align-items:center;gap:6px;color:var(--primary);font-weight:600;font-size:0.88rem"><?= e(t('btn_more')) ?> →</a>
+        </div>
+
+        <!-- Telegram bog'lash -->
+        <div class="profile-card" style="text-align:left">
+            <h3 style="font-family:var(--serif);font-size:1.1rem;font-weight:600;margin-bottom:14px">
+                <svg viewBox="0 0 24 24" fill="#0088cc" style="width:20px;height:20px;vertical-align:middle;margin-right:6px"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                Telegram
+            </h3>
+            <?php if (!empty($u['telegram_id'])): ?>
+                <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;background:rgba(0,136,204,0.06);border:1px solid rgba(0,136,204,0.15);border-radius:14px">
+                    <?php if (!empty($u['telegram_photo'])): ?>
+                        <img src="<?= e($u['telegram_photo']) ?>" style="width:40px;height:40px;border-radius:50%;object-fit:cover" alt="">
+                    <?php else: ?>
+                        <div style="width:40px;height:40px;border-radius:50%;background:#0088cc;display:grid;place-items:center;color:#fff;font-weight:700;font-size:1.1rem"><?= e(mb_substr($u['name'], 0, 1, 'UTF-8')) ?></div>
+                    <?php endif; ?>
+                    <div style="flex:1">
+                        <div style="font-weight:700;font-size:0.9rem"><?= e(!empty($u['telegram_username']) ? '@' . $u['telegram_username'] : 'ID: ' . $u['telegram_id']) ?></div>
+                        <div style="font-size:0.75rem;color:#10b981;font-weight:600">Bog'langan</div>
+                    </div>
+                </div>
+                <form method="post" style="margin-top:12px">
+                    <input type="hidden" name="csrf" value="<?= e(vpy_csrf()) ?>">
+                    <input type="hidden" name="action" value="telegram_unlink">
+                    <button type="submit" onclick="return confirm('Telegram bog\'lamani olib tashlamoqchimisiz?')" style="padding:8px 16px;border-radius:10px;border:1px solid rgba(239,68,68,0.3);background:rgba(239,68,68,0.05);color:#ef4444;font-size:0.8rem;font-weight:600;cursor:pointer">Bog'lamani olib tashlash</button>
+                </form>
+            <?php else: ?>
+                <?php $bot_username = vpy_setting('telegram_bot_username', ''); ?>
+                <?php if ($bot_username): ?>
+                    <p style="font-size:0.82rem;color:var(--muted);margin-bottom:12px">Telegram hisobingizni bog'lang va keyingi safar tezkor kirish imkoniga ega bo'ling</p>
+                    <script async src="https://telegram.org/js/telegram-widget.js?22"
+                        data-telegram-login="<?= e($bot_username) ?>"
+                        data-size="large"
+                        data-radius="14"
+                        data-auth-url="https://<?= e(VPY_DOMAIN) ?>/api/telegram-auth.php"
+                        data-request-access="write"></script>
+                <?php else: ?>
+                    <p style="font-size:0.82rem;color:var(--muted)">Telegram bot sozlanmagan. Admin sozlamalardan bot username kiriting.</p>
+                <?php endif; ?>
+            <?php endif; ?>
         </div>
     </div>
 
