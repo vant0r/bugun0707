@@ -46,9 +46,13 @@ if (vpy_is_post() && vpy_csrf_check(vpy_post('csrf'))) {
         }
     }
 
+    // Toggle fields ro'yxati (checkbox-like hidden inputs)
+    $toggle_fields = ['founder_active','developer_active','payment_click_active','payment_payme_active','payment_humo_active','payment_uzcard_active','payment_visa_active','payment_invoice_active'];
+
     foreach ($_POST as $key => $val) {
         if ($key === 'csrf' || !is_string($val)) continue;
         if (in_array($key, $upload_fields)) continue; // skip file fields from POST
+        if (in_array($key, $toggle_fields)) continue; // skip toggle fields - handled separately below
         if (isset($by_key[$key])) {
             $settings[$by_key[$key]]['value'] = (string)$val;
         } else {
@@ -57,9 +61,8 @@ if (vpy_is_post() && vpy_csrf_check(vpy_post('csrf'))) {
     }
 
     // Handle checkboxes (active toggles)
-    $toggle_fields = ['founder_active','developer_active','payment_click_active','payment_payme_active','payment_humo_active','payment_uzcard_active','payment_visa_active','payment_invoice_active'];
     foreach ($toggle_fields as $tf) {
-        $v = isset($_POST[$tf]) ? '1' : '0';
+        $v = (isset($_POST[$tf]) && $_POST[$tf] === '1') ? '1' : '0';
         if (isset($by_key[$tf])) {
             $settings[$by_key[$tf]]['value'] = $v;
         } else {
