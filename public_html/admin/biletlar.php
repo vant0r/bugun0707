@@ -17,7 +17,16 @@ if (vpy_is_post() && vpy_csrf_check(vpy_post('csrf'))) {
                 if ($row && (int)$row['max_id'] > $max_bilet) $max_bilet = (int)$row['max_id'];
             } catch (Exception $e) {}
         }
+        // faol_biletlar.json dan ham total_bilets ni tekshiramiz
+        $ab = vpy_read_json('faol_biletlar', []);
+        if (isset($ab['total_bilets']) && (int)$ab['total_bilets'] > $max_bilet) {
+            $max_bilet = (int)$ab['total_bilets'];
+        }
         $new_bilet_id = $max_bilet + 1;
+        
+        // Yangi bilet sonini JSON ga saqlaymiz (karta ko'rinishi uchun)
+        $ab['total_bilets'] = $new_bilet_id;
+        vpy_write_json('faol_biletlar', $ab);
         
         vpy_flash_set('success', 'Bilet #' . sprintf('%02d', $new_bilet_id) . ' qo\'shildi! Savollar qo\'shing.');
         vpy_redirect('/admin/savollar-form.php?bilet_id=' . $new_bilet_id);
@@ -35,7 +44,8 @@ if (vpy_is_post() && vpy_csrf_check(vpy_post('csrf'))) {
             sort($active_list);
         }
         
-        vpy_write_json('faol_biletlar', ['active' => $active_list]);
+        $active_bilets['active'] = $active_list;
+        vpy_write_json('faol_biletlar', $active_bilets);
         vpy_flash_set('success', 'Faol biletlar yangilandi');
         vpy_redirect('/admin/biletlar.php');
     }
@@ -43,7 +53,9 @@ if (vpy_is_post() && vpy_csrf_check(vpy_post('csrf'))) {
     if ($action === 'set_active_count') {
         $count = max(1, min(100, (int)vpy_post('active_count')));
         $active_list = range(1, $count);
-        vpy_write_json('faol_biletlar', ['active' => $active_list]);
+        $existing = vpy_read_json('faol_biletlar', []);
+        $existing['active'] = $active_list;
+        vpy_write_json('faol_biletlar', $existing);
         vpy_flash_set('success', 'Dastlabki ' . $count . ' ta bilet faollashtirildi');
         vpy_redirect('/admin/biletlar.php');
     }
@@ -57,7 +69,6 @@ if ($pdo) {
         }
     } catch (Exception $e) {}
 }
-$total_bilets = max(62, empty($bilet_data) ? 62 : max(array_keys($bilet_data)));
 
 // Faol biletlar ro'yxatini o'qish
 $active_bilets_data = vpy_read_json('faol_biletlar', []);
@@ -67,6 +78,11 @@ if (empty($active_bilets_data) || !isset($active_bilets_data['active'])) {
     vpy_write_json('faol_biletlar', $active_bilets_data);
 }
 $active_bilets = $active_bilets_data['active'] ?? [];
+
+// total_bilets ni DB dan va JSON dan eng kattasini olamiz
+$total_from_db = empty($bilet_data) ? 62 : max(array_keys($bilet_data));
+$total_from_json = isset($active_bilets_data['total_bilets']) ? (int)$active_bilets_data['total_bilets'] : 62;
+$total_bilets = max(62, $total_from_db, $total_from_json);
 
 vpy_panel_head(t('admin_tickets'), <<<CSS
 .bilet-toolbar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:18px;padding:14px 18px;background:var(--glass);backdrop-filter:blur(16px);border:1px solid var(--border);border-radius:14px}
