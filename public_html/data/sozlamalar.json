@@ -65,6 +65,11 @@
         "group": "telegram"
     },
     {
+        "key": "telegram_bot_username",
+        "value": "",
+        "group": "telegram"
+    },
+    {
         "key": "click_service_id",
         "value": "",
         "group": "payments"

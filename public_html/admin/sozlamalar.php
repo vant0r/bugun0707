@@ -46,9 +46,13 @@ if (vpy_is_post() && vpy_csrf_check(vpy_post('csrf'))) {
         }
     }
 
+    // Toggle fields ro'yxati (checkbox-like hidden inputs)
+    $toggle_fields = ['founder_active','developer_active','payment_click_active','payment_payme_active','payment_humo_active','payment_uzcard_active','payment_visa_active','payment_invoice_active'];
+
     foreach ($_POST as $key => $val) {
         if ($key === 'csrf' || !is_string($val)) continue;
         if (in_array($key, $upload_fields)) continue; // skip file fields from POST
+        if (in_array($key, $toggle_fields)) continue; // skip toggle fields - handled separately below
         if (isset($by_key[$key])) {
             $settings[$by_key[$key]]['value'] = (string)$val;
         } else {
@@ -57,9 +61,8 @@ if (vpy_is_post() && vpy_csrf_check(vpy_post('csrf'))) {
     }
 
     // Handle checkboxes (active toggles)
-    $toggle_fields = ['founder_active','developer_active','payment_click_active','payment_payme_active','payment_humo_active','payment_uzcard_active','payment_visa_active','payment_invoice_active'];
     foreach ($toggle_fields as $tf) {
-        $v = isset($_POST[$tf]) ? '1' : '0';
+        $v = (isset($_POST[$tf]) && $_POST[$tf] === '1') ? '1' : '0';
         if (isset($by_key[$tf])) {
             $settings[$by_key[$tf]]['value'] = $v;
         } else {
@@ -107,6 +110,35 @@ vpy_panel_head(t('admin_settings'), <<<CSS
 .toggle-switch::after{content:"";position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:var(--muted);transition:var(--t)}
 .toggle-switch.on{background:var(--primary);border-color:var(--primary)}
 .toggle-switch.on::after{transform:translateX(20px);background:#fff}
+/* Payment Summary */
+.pay-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px}
+.pay-summary-item{display:flex;align-items:center;gap:14px;padding:18px 20px;background:var(--glass-strong);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:16px}
+.pay-summary-icon{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;flex-shrink:0}
+.pay-summary-num{font-size:1.5rem;font-weight:800;line-height:1;color:var(--dark)}
+.pay-summary-label{font-size:0.75rem;color:var(--muted);font-weight:600;margin-top:2px}
+/* Section Titles */
+.pay-section-title{display:flex;align-items:center;gap:10px;font-size:0.82rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin:28px 0 14px;padding-left:4px}
+.pay-section-title svg{opacity:0.6}
+/* Pro Cards */
+.pay-card-pro{margin-bottom:14px;border-radius:18px;overflow:hidden;transition:all 0.3s cubic-bezier(.4,0,.2,1)}
+.pay-card-pro.pcp-active{border-left:3px solid #10b981}
+.pay-card-pro.pcp-inactive{opacity:0.55;border-left:3px solid transparent}
+.pay-card-pro:hover{opacity:1}
+.pcp-header{display:flex;align-items:center;gap:16px;padding:20px 24px}
+.pcp-icon{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;flex-shrink:0}
+.pcp-info{flex:1;min-width:0}
+.pcp-name{font-size:1.05rem;font-weight:800;margin:0;color:var(--dark)}
+.pcp-desc{font-size:0.78rem;color:var(--muted);margin:2px 0 0;font-weight:500}
+.pcp-right{display:flex;align-items:center;gap:12px;flex-shrink:0}
+.pcp-body{padding:0 24px 20px;border-top:1px solid var(--border);margin-top:0;padding-top:18px}
+/* Fields animation */
+.pay-fields{transition:all 0.35s cubic-bezier(.4,0,.2,1);max-height:500px;opacity:1;overflow:hidden}
+.pay-fields-hidden{max-height:0;opacity:0;margin:0;padding:0;pointer-events:none}
+/* Badges */
+.pay-status-badge{padding:5px 12px;border-radius:20px;font-size:0.68rem;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;white-space:nowrap}
+.badge-on{background:rgba(16,185,129,0.12);color:#10b981}
+.badge-off{background:rgba(107,114,128,0.08);color:var(--muted)}
+@media(max-width:640px){.pay-summary{grid-template-columns:1fr}.pcp-header{flex-wrap:wrap;gap:12px}.pcp-right{width:100%;justify-content:flex-end}}
 CSS);
 vpy_panel_sidebar('sozlamalar', true);
 ?>
@@ -277,94 +309,46 @@ vpy_panel_sidebar('sozlamalar', true);
     </div>
 
 <?php elseif ($current_tab === 'payments'): ?>
-    <!-- CLICK -->
-    <div class="card" style="margin-bottom:18px">
-        <div class="card-head"><h2>Click</h2></div>
-        <div class="toggle-row">
-            <label>Click to'lovni faollashtirish</label>
-            <div class="toggle-switch <?= ($grouped['payments']['payment_click_active'] ?? '0') === '1' ? 'on' : '' ?>" data-field="payment_click_active"></div>
-            <input type="hidden" name="payment_click_active" id="toggle_payment_click_active" value="<?= e($grouped['payments']['payment_click_active'] ?? '0') ?>">
-        </div>
-        <div class="field-row" style="margin-top:14px">
-            <div class="field"><label>Service ID</label><input type="text" name="click_service_id" value="<?= e($grouped['payments']['click_service_id'] ?? '') ?>"></div>
-            <div class="field"><label>Merchant ID</label><input type="text" name="click_merchant_id" value="<?= e($grouped['payments']['click_merchant_id'] ?? '') ?>"></div>
-        </div>
-        <div class="field"><label>Secret Key</label><input type="password" name="click_secret_key" value="<?= e($grouped['payments']['click_secret_key'] ?? '') ?>" autocomplete="off"></div>
-    </div>
+    <?php include __DIR__ . '/_payments_tab.php'; ?>
 
-    <!-- PAYME -->
+<?php elseif ($current_tab === 'telegram'): ?>
+    <!-- TELEGRAM SOZLAMALARI -->
     <div class="card" style="margin-bottom:18px">
-        <div class="card-head"><h2>Payme</h2></div>
-        <div class="toggle-row">
-            <label>Payme to'lovni faollashtirish</label>
-            <div class="toggle-switch <?= ($grouped['payments']['payment_payme_active'] ?? '0') === '1' ? 'on' : '' ?>" data-field="payment_payme_active"></div>
-            <input type="hidden" name="payment_payme_active" id="toggle_payment_payme_active" value="<?= e($grouped['payments']['payment_payme_active'] ?? '0') ?>">
+        <div class="card-head"><h2>
+            <svg viewBox="0 0 24 24" fill="#0088cc" style="width:22px;height:22px;vertical-align:middle;margin-right:8px"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+            Telegram bot sozlamalari
+        </h2></div>
+        <p style="font-size:0.85rem;color:var(--muted);margin-bottom:18px">Admin bildirishnomalar va foydalanuvchilar uchun Telegram orqali kirish imkoniyati</p>
+        <div class="field">
+            <label>Bot Token</label>
+            <input type="password" name="telegram_bot_token" value="<?= e($grouped['telegram']['telegram_bot_token'] ?? '') ?>" autocomplete="off" placeholder="123456789:ABCdefGhIjKlMnOpQrStUvWxYz">
+            <small style="display:block;margin-top:4px;font-size:0.75rem;color:var(--muted)">@BotFather dan olingan token</small>
         </div>
-        <div class="field-row" style="margin-top:14px">
-            <div class="field"><label>Merchant ID</label><input type="text" name="payme_merchant_id" value="<?= e($grouped['payments']['payme_merchant_id'] ?? '') ?>"></div>
-            <div class="field"><label>Key</label><input type="password" name="payme_key" value="<?= e($grouped['payments']['payme_key'] ?? '') ?>" autocomplete="off"></div>
+        <div class="field">
+            <label>Admin Chat ID</label>
+            <input type="text" name="telegram_chat_id" value="<?= e($grouped['telegram']['telegram_chat_id'] ?? '') ?>" placeholder="123456789">
+            <small style="display:block;margin-top:4px;font-size:0.75rem;color:var(--muted)">Admin bildirishnomalar yuboriladigan chat/group ID</small>
         </div>
     </div>
 
-    <!-- HUMO -->
     <div class="card" style="margin-bottom:18px">
-        <div class="card-head"><h2>Humo karta</h2></div>
-        <div class="toggle-row">
-            <label>Humo orqali to'lovni faollashtirish</label>
-            <div class="toggle-switch <?= ($grouped['payments']['payment_humo_active'] ?? '0') === '1' ? 'on' : '' ?>" data-field="payment_humo_active"></div>
-            <input type="hidden" name="payment_humo_active" id="toggle_payment_humo_active" value="<?= e($grouped['payments']['payment_humo_active'] ?? '0') ?>">
+        <div class="card-head"><h2>Telegram Login (foydalanuvchilar uchun)</h2></div>
+        <p style="font-size:0.85rem;color:var(--muted);margin-bottom:18px">Foydalanuvchilar Telegram hisobi orqali tezkor kirish imkoniyati. Bot username kiritilsa, login sahifasida "Telegram orqali kirish" tugmasi paydo bo'ladi.</p>
+        <div class="field">
+            <label>Bot Username (@ belgisiz)</label>
+            <input type="text" name="telegram_bot_username" value="<?= e($grouped['telegram']['telegram_bot_username'] ?? '') ?>" placeholder="YourBotName_bot">
+            <small style="display:block;margin-top:4px;font-size:0.75rem;color:var(--muted)">Masalan: <code>vatanparvar_bot</code> — @BotFather da yaratilgan bot nomi</small>
         </div>
-        <div class="field-row" style="margin-top:14px">
-            <div class="field"><label>Karta raqami</label><input type="text" name="humo_card_number" value="<?= e($grouped['payments']['humo_card_number'] ?? '') ?>" placeholder="9860 XXXX XXXX XXXX" maxlength="19"></div>
-            <div class="field"><label>Karta egasi ismi</label><input type="text" name="humo_card_name" value="<?= e($grouped['payments']['humo_card_name'] ?? '') ?>" placeholder="FAMILIYA ISM"></div>
+        <?php if (!empty($grouped['telegram']['telegram_bot_username'])): ?>
+        <div style="margin-top:14px;padding:14px 18px;background:rgba(0,136,204,0.05);border:1px solid rgba(0,136,204,0.15);border-radius:14px">
+            <div style="font-size:0.82rem;font-weight:600;color:#0088cc;margin-bottom:6px">Muhim sozlash:</div>
+            <ol style="font-size:0.8rem;color:var(--muted);padding-left:18px;line-height:1.8">
+                <li>@BotFather da <code>/setdomain</code> buyrug'ini yuboring</li>
+                <li>Botingizni tanlang</li>
+                <li>Domain sifatida <code><?= e(VPY_DOMAIN) ?></code> kiriting</li>
+            </ol>
         </div>
-    </div>
-
-    <!-- UZCARD -->
-    <div class="card" style="margin-bottom:18px">
-        <div class="card-head"><h2>Uzcard karta</h2></div>
-        <div class="toggle-row">
-            <label>Uzcard orqali to'lovni faollashtirish</label>
-            <div class="toggle-switch <?= ($grouped['payments']['payment_uzcard_active'] ?? '0') === '1' ? 'on' : '' ?>" data-field="payment_uzcard_active"></div>
-            <input type="hidden" name="payment_uzcard_active" id="toggle_payment_uzcard_active" value="<?= e($grouped['payments']['payment_uzcard_active'] ?? '0') ?>">
-        </div>
-        <div class="field-row" style="margin-top:14px">
-            <div class="field"><label>Karta raqami</label><input type="text" name="uzcard_card_number" value="<?= e($grouped['payments']['uzcard_card_number'] ?? '') ?>" placeholder="8600 XXXX XXXX XXXX" maxlength="19"></div>
-            <div class="field"><label>Karta egasi ismi</label><input type="text" name="uzcard_card_name" value="<?= e($grouped['payments']['uzcard_card_name'] ?? '') ?>" placeholder="FAMILIYA ISM"></div>
-        </div>
-    </div>
-
-    <!-- VISA -->
-    <div class="card" style="margin-bottom:18px">
-        <div class="card-head"><h2>Visa karta</h2></div>
-        <div class="toggle-row">
-            <label>Visa orqali to'lovni faollashtirish</label>
-            <div class="toggle-switch <?= ($grouped['payments']['payment_visa_active'] ?? '0') === '1' ? 'on' : '' ?>" data-field="payment_visa_active"></div>
-            <input type="hidden" name="payment_visa_active" id="toggle_payment_visa_active" value="<?= e($grouped['payments']['payment_visa_active'] ?? '0') ?>">
-        </div>
-        <div class="field-row" style="margin-top:14px">
-            <div class="field"><label>Karta raqami</label><input type="text" name="visa_card_number" value="<?= e($grouped['payments']['visa_card_number'] ?? '') ?>" placeholder="4XXX XXXX XXXX XXXX" maxlength="19"></div>
-            <div class="field"><label>Karta egasi ismi</label><input type="text" name="visa_card_name" value="<?= e($grouped['payments']['visa_card_name'] ?? '') ?>" placeholder="FAMILIYA ISM"></div>
-        </div>
-    </div>
-
-    <!-- KOMPANIYA HISOBI -->
-    <div class="card" style="margin-bottom:18px">
-        <div class="card-head"><h2>Kompaniya hisob raqami (pul o'tkazish)</h2></div>
-        <div class="toggle-row">
-            <label>Hisob raqamiga o'tkazishni faollashtirish</label>
-            <div class="toggle-switch <?= ($grouped['payments']['payment_invoice_active'] ?? '0') === '1' ? 'on' : '' ?>" data-field="payment_invoice_active"></div>
-            <input type="hidden" name="payment_invoice_active" id="toggle_payment_invoice_active" value="<?= e($grouped['payments']['payment_invoice_active'] ?? '0') ?>">
-        </div>
-        <div class="field-row" style="margin-top:14px">
-            <div class="field"><label>Kompaniya nomi</label><input type="text" name="company_name" value="<?= e($grouped['company']['company_name'] ?? '') ?>"></div>
-            <div class="field"><label>INN</label><input type="text" name="company_inn" value="<?= e($grouped['company']['company_inn'] ?? '') ?>"></div>
-        </div>
-        <div class="field-row">
-            <div class="field"><label>Hisob raqami</label><input type="text" name="company_account" value="<?= e($grouped['company']['company_account'] ?? '') ?>"></div>
-            <div class="field"><label>Bank / MFO</label><input type="text" name="company_bank" value="<?= e($grouped['company']['company_bank'] ?? '') ?>"></div>
-        </div>
-        <div class="field"><label>MFO</label><input type="text" name="company_mfo" value="<?= e($grouped['company']['company_mfo'] ?? '') ?>"></div>
+        <?php endif; ?>
     </div>
 
 <?php else: ?>
@@ -407,12 +391,47 @@ document.querySelectorAll('.toggle-switch').forEach(function(ts){
     ts.addEventListener('click', function(){
         var field = ts.getAttribute('data-field');
         var input = document.getElementById('toggle_' + field);
+        var isOn;
         if(ts.classList.contains('on')){
             ts.classList.remove('on');
             input.value = '0';
+            isOn = false;
         } else {
             ts.classList.add('on');
             input.value = '1';
+            isOn = true;
+        }
+
+        // To'lov kartasi maydonlarini yashirish/ko'rsatish
+        var fields = document.getElementById('fields_' + field);
+        var card = document.querySelector('[data-pay-card="' + field + '"]');
+        var badge = document.getElementById('badge_' + field);
+        if (fields) {
+            if (isOn) {
+                fields.classList.remove('pay-fields-hidden');
+            } else {
+                fields.classList.add('pay-fields-hidden');
+            }
+        }
+        if (card) {
+            if (isOn) {
+                card.classList.remove('pay-inactive','pcp-inactive');
+                card.classList.add('pay-active','pcp-active');
+            } else {
+                card.classList.remove('pay-active','pcp-active');
+                card.classList.add('pay-inactive','pcp-inactive');
+            }
+        }
+        if (badge) {
+            if (isOn) {
+                badge.classList.remove('badge-off');
+                badge.classList.add('badge-on');
+                badge.textContent = 'Faol';
+            } else {
+                badge.classList.remove('badge-on');
+                badge.classList.add('badge-off');
+                badge.textContent = "O'chiq";
+            }
         }
     });
 });

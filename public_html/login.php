@@ -179,6 +179,16 @@ h1 em{font-style:italic;color:var(--primary)}
                     <button type="submit" class="btn"><?= e(t('auth_login_btn')) ?><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
                 </form>
                 <div class="divider"><?= e(t('auth_or')) ?></div>
+                <?php $tg_bot = vpy_setting('telegram_bot_username', ''); if ($tg_bot): ?>
+                <div style="text-align:center;margin-bottom:14px">
+                    <script async src="https://telegram.org/js/telegram-widget.js?22"
+                        data-telegram-login="<?= e($tg_bot) ?>"
+                        data-size="large"
+                        data-radius="100"
+                        data-auth-url="https://<?= e(VPY_DOMAIN) ?>/api/telegram-auth.php"
+                        data-request-access="write"></script>
+                </div>
+                <?php endif; ?>
                 <p class="alt"><?= e(t('auth_no_account')) ?> <button onclick="switchMode('register')"><?= e(t('auth_register_btn')) ?></button></p>
             </div>
 
