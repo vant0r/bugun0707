@@ -100,26 +100,40 @@ vpy_public_navbar('tariflar');
             <h2 class="h-section" style="margin-top:18px"><?= e(t('pay_select_method')) ?></h2>
         </div>
         <div class="payment-methods">
+            <?php if (vpy_setting('payment_click_active') === '1'): ?>
             <div class="pay-card reveal r1">
                 <div class="pay-card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div>
                 <h3><?= e(t('pay_method_click')) ?></h3>
                 <p>Onlayn karta orqali</p>
             </div>
+            <?php endif; ?>
+            <?php if (vpy_setting('payment_payme_active') === '1'): ?>
             <div class="pay-card reveal r2">
                 <div class="pay-card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01"/></svg></div>
                 <h3><?= e(t('pay_method_payme')) ?></h3>
                 <p>Tezkor mobil to'lov</p>
             </div>
+            <?php endif; ?>
+            <?php if (vpy_setting('payment_invoice_active') === '1'): ?>
             <div class="pay-card reveal r3">
                 <div class="pay-card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg></div>
                 <h3><?= e(t('pay_method_invoice')) ?></h3>
                 <p>Bank o'tkazmasi</p>
             </div>
+            <?php endif; ?>
+            <?php if (vpy_setting('payment_humo_active') === '1' || vpy_setting('payment_uzcard_active') === '1' || vpy_setting('payment_visa_active') === '1'): ?>
             <div class="pay-card reveal r4">
-                <div class="pay-card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
-                <h3><?= e(t('pay_method_cash')) ?></h3>
-                <p>Avtomaktabga to'g'ridan</p>
+                <div class="pay-card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div>
+                <h3>Karta o'tkazma</h3>
+                <p><?php
+                    $cards = [];
+                    if (vpy_setting('payment_humo_active') === '1') $cards[] = 'Humo';
+                    if (vpy_setting('payment_uzcard_active') === '1') $cards[] = 'Uzcard';
+                    if (vpy_setting('payment_visa_active') === '1') $cards[] = 'Visa';
+                    echo e(implode(', ', $cards));
+                ?></p>
             </div>
+            <?php endif; ?>
         </div>
     </div>
 </section>
